@@ -123,6 +123,17 @@ const pronostici = [
       },
     },
   },
+  {
+    nome: "Cuzzo",
+    img: "../img/macroe.png",
+    scelte: {
+      gruppoConnors: { primo: "Carlos Alcaraz", secondo: "Ben Shelton" },
+      gruppoBorg: {
+        primo: "Jannik Sinner",
+        secondo: "Lorenzo Musetti",
+      },
+    },
+  },
 ];
 
 // === COSTRUZIONE PAGINA ===
