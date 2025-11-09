@@ -101,7 +101,7 @@ app.get("/health", (req, res) => {
   res.json({ status: "OK", timestamp: new Date().toISOString() });
 });
 
-app.get("/svolgimento/finals", (req, res) => res.render("home"));
+app.get("/svolgimento/finals", (req, res) => res.render("svolgimento"));
 
 // Avvia il server
 app.listen(PORT, "0.0.0.0", () => {
