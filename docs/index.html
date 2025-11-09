@@ -949,9 +949,19 @@
         }
 
         // Funzione per inviare il pronostico al server
-        // Funzione per inviare il pronostico al server
+        // URL del backend Heroku - SOSTITUISCI con il tuo URL
+        const BACKEND_URL =
+          "https://atp-finals-backend-popostapo-7edfa465e9dd.herokuapp.com";
+
         async function sendPredictionToServer() {
-          // Prepara i dati da inviare
+          const submitButton = document.getElementById("submit-button");
+          const originalText = submitButton.textContent;
+
+          // Disabilita il pulsante durante l'invio
+          submitButton.disabled = true;
+          submitButton.textContent = "Invio in corso...";
+
+          // Prepara i dati (come prima)
           const predictionData = {
             userName: tournamentState.userName,
             predictions: {
@@ -987,11 +997,7 @@
           };
 
           try {
-            // URL del backend - cambia con l'URL del tuo server
-            const backendUrl =
-              "https://atp-finals-backend-popostapo-7edfa465e9dd.herokuapp.com"; // o altro servizio di hosting
-
-            const response = await fetch(`${backendUrl}/predictions`, {
+            const response = await fetch(`${BACKEND_URL}/api/predictions`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -1001,54 +1007,55 @@
 
             const result = await response.json();
 
-            if (response.ok) {
-              // Successo
-              confirmationMessage.textContent = `Grazie ${tournamentState.userName}! Il tuo pronostico è stato registrato con successo.`;
+            if (response.ok && result.success) {
+              // SUCCESSO
+              confirmationMessage.textContent = `🎉 Grazie ${tournamentState.userName}! Il tuo pronostico è stato registrato con successo. ID: ${result.predictionId}`;
               confirmationModal.style.display = "flex";
 
               // Salva anche nel localStorage come backup
-              try {
-                const existingPredictions =
-                  JSON.parse(localStorage.getItem("atpPredictions")) || [];
-                existingPredictions.push({
-                  ...predictionData,
-                  timestamp: new Date().toISOString(),
-                  serverId: result.prediction?.id,
-                });
-                localStorage.setItem(
-                  "atpPredictions",
-                  JSON.stringify(existingPredictions)
-                );
-              } catch (e) {
-                console.error("Errore nel salvataggio locale:", e);
-              }
+              saveToLocalStorage(predictionData, result.predictionId);
             } else {
-              // Errore dal server
+              // ERRORE DAL SERVER
               throw new Error(result.error || "Errore del server");
             }
           } catch (error) {
             console.error("Errore nell'invio:", error);
 
-            // Fallback: salva solo localmente
+            // FALLBACK: salva solo localmente
             try {
-              const existingPredictions =
-                JSON.parse(localStorage.getItem("atpPredictions")) || [];
-              existingPredictions.push({
-                ...predictionData,
-                timestamp: new Date().toISOString(),
-                localBackup: true,
-              });
-              localStorage.setItem(
-                "atpPredictions",
-                JSON.stringify(existingPredictions)
-              );
-
-              confirmationMessage.textContent = `Grazie ${tournamentState.userName}! Il tuo pronostico è stato salvato localmente (connessione al server non disponibile).`;
+              const localId = saveToLocalStorage(predictionData);
+              confirmationMessage.textContent = `📱 Grazie ${tournamentState.userName}! Il pronostico è stato salvato localmente (server non disponibile). ID locale: ${localId}`;
               confirmationModal.style.display = "flex";
             } catch (e) {
-              confirmationMessage.textContent = `Errore nel salvataggio: ${error.message}`;
+              confirmationMessage.textContent = `❌ Errore nel salvataggio: ${error.message}`;
               confirmationModal.style.display = "flex";
             }
+          } finally {
+            // Riabilita il pulsante
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+          }
+        }
+
+        function saveToLocalStorage(predictionData, serverId = null) {
+          const localId = serverId || `local_${Date.now()}`;
+          try {
+            const existingPredictions =
+              JSON.parse(localStorage.getItem("atpPredictions")) || [];
+            existingPredictions.push({
+              ...predictionData,
+              id: localId,
+              timestamp: new Date().toISOString(),
+              serverId: serverId,
+            });
+            localStorage.setItem(
+              "atpPredictions",
+              JSON.stringify(existingPredictions)
+            );
+            return localId;
+          } catch (e) {
+            console.error("Errore salvataggio locale:", e);
+            throw e;
           }
         }
       });
