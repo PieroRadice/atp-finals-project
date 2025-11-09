@@ -33,6 +33,7 @@ header {
   width: 100%;
   height: 150px;
   object-fit: cover;
+  object-position: top; /* <-- Mostra la parte alta, taglia in basso */
   border-bottom: 2px solid #eee;
 }
 
