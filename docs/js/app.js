@@ -3,55 +3,63 @@ document.addEventListener("DOMContentLoaded", function () {
   const BACKEND_URL =
     "https://atp-finals-backend-popostapo-7edfa465e9dd.herokuapp.com";
 
-  // Mappa dei giocatori - FONTE DEI DATI
+  // Mappa dei giocatori con sistema punti
   const players = {
     alcaraz: {
       name: "Carlos Alcaraz",
       initial: "C",
       girone: "Jimmy Connors",
       stats: "2-1 | 5-3",
+      basePoints: 20, // Come secondo classificato
     },
     sinner: {
       name: "Jannik Sinner",
       initial: "J",
       girone: "Bjorn Borg",
       stats: "2-1 | 5-3",
+      basePoints: 20, // Come secondo classificato
     },
     zverev: {
       name: "Alexander Zverev",
       initial: "A",
       girone: "Bjorn Borg",
       stats: "1-2 | 4-5",
-    },
-    shelton: {
-      name: "Ben Shelton",
-      initial: "B",
-      girone: "Bjorn Borg",
-      stats: "0-3 | 1-6",
+      basePoints: 40, // Come secondo classificato
     },
     fritz: {
       name: "Taylor Fritz",
       initial: "T",
       girone: "Jimmy Connors",
       stats: "1-2 | 3-5",
+      basePoints: 40, // Come secondo classificato
+    },
+    shelton: {
+      name: "Ben Shelton",
+      initial: "B",
+      girone: "Bjorn Borg",
+      stats: "0-3 | 1-6",
+      basePoints: 80, // Come secondo classificato
     },
     deminaur: {
       name: "Alex de Minaur",
       initial: "A",
       girone: "Jimmy Connors",
       stats: "1-2 | 3-5",
+      basePoints: 80, // Come secondo classificato
     },
     augeraliassime: {
       name: "Felix Auger-Aliassime",
       initial: "F",
       girone: "Bjorn Borg",
       stats: "1-2 | 3-5",
+      basePoints: 160, // Come secondo classificato
     },
     musetti: {
       name: "Lorenzo Musetti",
       initial: "L",
       girone: "Jimmy Connors",
       stats: "0-3 | 1-6",
+      basePoints: 160, // Come secondo classificato
     },
   };
 
@@ -62,6 +70,10 @@ document.addEventListener("DOMContentLoaded", function () {
     red: { first: null, second: null },
     semifinals: { semifinal1: null, semifinal2: null },
     final: { winner: null },
+    points: {
+      total: 0,
+      breakdown: [],
+    },
   };
 
   // Elementi UI
@@ -71,6 +83,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const confirmationMessage = document.getElementById("confirmation-message");
   const closeModalButton = document.getElementById("close-modal");
   const groupsContainer = document.getElementById("groups-container");
+  const scoreSection = document.getElementById("score-section");
+  const scoreBreakdown = document.getElementById("score-breakdown");
+  const totalPointsElement = document.getElementById("total-points");
 
   // Inizializza l'applicazione
   initApp();
@@ -149,6 +164,140 @@ document.addEventListener("DOMContentLoaded", function () {
     return playerDiv;
   }
 
+  // Calcola il punteggio totale
+  function calculatePoints() {
+    let totalPoints = 0;
+    const breakdown = [];
+
+    // Punti per i gironi
+    Object.entries(tournamentState).forEach(([groupKey, groupData]) => {
+      if (groupKey === "green" || groupKey === "red") {
+        // Primo classificato - doppio punti
+        if (groupData.first) {
+          const player = players[groupData.first];
+          const points = player.basePoints * 2;
+          totalPoints += points;
+          breakdown.push({
+            type: "Primo Classificato",
+            player: player.name,
+            points: points,
+            group: groupKey === "green" ? "Jimmy Connors" : "Bjorn Borg",
+          });
+        }
+
+        // Secondo classificato - punti base
+        if (groupData.second) {
+          const player = players[groupData.second];
+          const points = player.basePoints;
+          totalPoints += points;
+          breakdown.push({
+            type: "Secondo Classificato",
+            player: player.name,
+            points: points,
+            group: groupKey === "green" ? "Jimmy Connors" : "Bjorn Borg",
+          });
+        }
+      }
+    });
+
+    // Punti per le semifinali (vincitori)
+    if (tournamentState.semifinals.semifinal1) {
+      let semifinal1Winner;
+      if (tournamentState.semifinals.semifinal1 === "green-first") {
+        semifinal1Winner = players[tournamentState.green.first];
+      } else {
+        semifinal1Winner = players[tournamentState.red.second];
+      }
+      const points = 50; // Punti fissi per semifinale vinta
+      totalPoints += points;
+      breakdown.push({
+        type: "Vincitore Semifinale",
+        player: semifinal1Winner.name,
+        points: points,
+        group: "Semifinale 1",
+      });
+    }
+
+    if (tournamentState.semifinals.semifinal2) {
+      let semifinal2Winner;
+      if (tournamentState.semifinals.semifinal2 === "red-first") {
+        semifinal2Winner = players[tournamentState.red.first];
+      } else {
+        semifinal2Winner = players[tournamentState.green.second];
+      }
+      const points = 50; // Punti fissi per semifinale vinta
+      totalPoints += points;
+      breakdown.push({
+        type: "Vincitore Semifinale",
+        player: semifinal2Winner.name,
+        points: points,
+        group: "Semifinale 2",
+      });
+    }
+
+    // Punti per il campione
+    if (tournamentState.final.winner) {
+      let champion;
+      if (tournamentState.final.winner === "semifinal1-winner") {
+        if (tournamentState.semifinals.semifinal1 === "green-first") {
+          champion = players[tournamentState.green.first];
+        } else {
+          champion = players[tournamentState.red.second];
+        }
+      } else {
+        if (tournamentState.semifinals.semifinal2 === "red-first") {
+          champion = players[tournamentState.red.first];
+        } else {
+          champion = players[tournamentState.green.second];
+        }
+      }
+      const points = 100; // Punti fissi per campione
+      totalPoints += points;
+      breakdown.push({
+        type: "Campione",
+        player: champion.name,
+        points: points,
+        group: "Finale",
+      });
+    }
+
+    tournamentState.points = {
+      total: totalPoints,
+      breakdown: breakdown,
+    };
+
+    return { total: totalPoints, breakdown: breakdown };
+  }
+
+  // Aggiorna la visualizzazione del punteggio
+  function updateScoreDisplay() {
+    const points = calculatePoints();
+
+    if (points.total > 0) {
+      scoreSection.style.display = "block";
+
+      // Aggiorna il dettaglio punti
+      scoreBreakdown.innerHTML = "";
+      points.breakdown.forEach((item) => {
+        const scoreItem = document.createElement("div");
+        scoreItem.className = "score-item";
+        scoreItem.innerHTML = `
+          <div class="score-info">
+            <div class="score-player">${item.player}</div>
+            <div class="score-type">${item.type} - ${item.group}</div>
+          </div>
+          <div class="score-points">+${item.points}</div>
+        `;
+        scoreBreakdown.appendChild(scoreItem);
+      });
+
+      // Aggiorna il totale
+      totalPointsElement.textContent = points.total;
+    } else {
+      scoreSection.style.display = "none";
+    }
+  }
+
   // Setup degli event listeners
   function setupEventListeners() {
     // Abilita/disabilita il pulsante di invio in base al nome utente
@@ -203,6 +352,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
 
           updateSemifinals();
+          updateScoreDisplay();
           updateSubmitButtonState();
         }
       });
@@ -229,6 +379,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
 
           updateFinal();
+          updateScoreDisplay();
           updateSubmitButtonState();
         });
       });
@@ -244,6 +395,7 @@ document.addEventListener("DOMContentLoaded", function () {
         tournamentState.final.winner = this.dataset.player;
 
         updateChampion();
+        updateScoreDisplay();
         updateSubmitButtonState();
       });
     });
@@ -258,6 +410,7 @@ document.addEventListener("DOMContentLoaded", function () {
     tournamentState.semifinals.semifinal1 = null;
     tournamentState.semifinals.semifinal2 = null;
     tournamentState.final.winner = null;
+    tournamentState.points = { total: 0, breakdown: [] };
 
     document.querySelectorAll(".player").forEach((player) => {
       player.classList.remove("selected-first", "selected-second");
@@ -270,6 +423,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("champion-name").textContent =
       "Seleziona i vincitori";
+    updateScoreDisplay();
     updateSubmitButtonState();
   }
 
@@ -419,6 +573,7 @@ document.addEventListener("DOMContentLoaded", function () {
               : players[tournamentState.green.second].name,
         },
       },
+      points: tournamentState.points,
     };
 
     try {
@@ -433,7 +588,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const result = await response.json();
 
       if (response.ok && result.success) {
-        confirmationMessage.textContent = `🎉 Grazie ${tournamentState.userName}! Il tuo pronostico è stato registrato con successo. ID: ${result.predictionId}`;
+        confirmationMessage.textContent = `🎉 Grazie ${tournamentState.userName}! Il tuo pronostico è stato registrato con successo. Punteggio: ${tournamentState.points.total} punti. ID: ${result.predictionId}`;
         confirmationModal.style.display = "flex";
 
         saveToLocalStorage(predictionData, result.predictionId);
@@ -445,7 +600,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       try {
         const localId = saveToLocalStorage(predictionData);
-        confirmationMessage.textContent = `📱 Grazie ${tournamentState.userName}! Il pronostico è stato salvato localmente (server non disponibile). ID locale: ${localId}`;
+        confirmationMessage.textContent = `📱 Grazie ${tournamentState.userName}! Il pronostico è stato salvato localmente (server non disponibile). Punteggio: ${tournamentState.points.total} punti. ID locale: ${localId}`;
         confirmationModal.style.display = "flex";
       } catch (e) {
         confirmationMessage.textContent = `❌ Errore nel salvataggio: ${error.message}`;

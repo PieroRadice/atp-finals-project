@@ -9,7 +9,8 @@
   <body>
     <div class="container">
       <header>
-        <h1>Popostapo ATP Finals 2025</h1>
+        <h1>ATP Finals 2023 - Simulatore</h1>
+        <p>Torino, Italia - 12-19 Novembre 2023</p>
         <div class="tournament-info">
           <div class="info-item">Surface: Indoor Hard</div>
           <div class="info-item">Prize: $15,000,000</div>
@@ -26,17 +27,7 @@
         </p>
         <p>3. Nelle semifinali, clicca sul vincitore di ogni match</p>
         <p>4. Nella finale, clicca sul vincitore del torneo</p>
-        <p>5. Clicca su "Invia pronostico" per salvare le tue selezioni</p>
-        <p>
-          Sinner e Carlo pagano 20 punti,<br />
-          zverev e Frits pagano 40 punti,<br />
-          Shelton e De Minaur 80 Punti,<br />
-          Auger-Aliassime e Musetti pagano 160 punti
-        </p>
-        <b
-          >importante: per la prima fase il pronostico delle semifinali e della
-          finale non verranno considerati.</b
-        >
+        <p>5. Controlla il punteggio totale e clicca su "Invia pronostico"</p>
       </div>
 
       <div class="name-input-container">
@@ -46,6 +37,19 @@
           id="user-name"
           placeholder="Inserisci il tuo nome"
         />
+      </div>
+
+      <!-- Sezione Punteggio -->
+      <div class="score-section" id="score-section" style="display: none">
+        <h2 class="section-title">Riepilogo Punteggio</h2>
+        <div class="score-container">
+          <div class="score-breakdown" id="score-breakdown">
+            <!-- Dettaglio punti verrà generato dinamicamente -->
+          </div>
+          <div class="total-score">
+            <h3>Punteggio Totale: <span id="total-points">0</span> punti</h3>
+          </div>
+        </div>
       </div>
 
       <form id="tournament-form">
