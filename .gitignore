@@ -1,4 +1,5 @@
 node_modules/
-predictions.json
-.env
 *.log
+.env
+.DS_Store
+backend/predictions.json
