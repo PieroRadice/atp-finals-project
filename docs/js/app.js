@@ -1,17 +1,58 @@
 document.addEventListener("DOMContentLoaded", function () {
   // URL del backend Heroku
-  const BACKEND_URL = "https://atp-finals-backend-popostapo-7edfa465e9dd.herokuapp.com";
+  const BACKEND_URL =
+    "https://atp-finals-backend-popostapo-7edfa465e9dd.herokuapp.com";
 
   // Mappa dei giocatori - FONTE DEI DATI
   const players = {
-    alcaraz: { name: "Carlos Alcaraz", initial: "C", girone: "Jimmy Connors", stats: "2-1 | 5-3" },
-    sinner: { name: "Jannik Sinner", initial: "J", girone: "Bjorn Borg", stats: "2-1 | 5-3" },
-    zverev: { name: "Alexander Zverev", initial: "A", girone: "Bjorn Borg", stats: "1-2 | 4-5" },
-    shelton: { name: "Ben Shelton", initial: "B", girone: "Bjorn Borg", stats: "0-3 | 1-6" },
-    fritz: { name: "Taylor Fritz", initial: "T", girone: "Jimmy Connors", stats: "1-2 | 3-5" },
-    deminaur: { name: "Alex de Minaur", initial: "A", girone: "Jimmy Connors", stats: "1-2 | 3-5" },
-    augeraliassime: { name: "Felix Auger-Aliassime", initial: "F", girone: "Bjorn Borg", stats: "1-2 | 3-5" },
-    musetti: { name: "Lorenzo Musetti", initial: "L", girone: "Jimmy Connors", stats: "0-3 | 1-6" }
+    alcaraz: {
+      name: "Carlos Alcaraz",
+      initial: "C",
+      girone: "Jimmy Connors",
+      stats: "2-1 | 5-3",
+    },
+    sinner: {
+      name: "Jannik Sinner",
+      initial: "J",
+      girone: "Bjorn Borg",
+      stats: "2-1 | 5-3",
+    },
+    zverev: {
+      name: "Alexander Zverev",
+      initial: "A",
+      girone: "Bjorn Borg",
+      stats: "1-2 | 4-5",
+    },
+    shelton: {
+      name: "Ben Shelton",
+      initial: "B",
+      girone: "Bjorn Borg",
+      stats: "0-3 | 1-6",
+    },
+    fritz: {
+      name: "Taylor Fritz",
+      initial: "T",
+      girone: "Jimmy Connors",
+      stats: "1-2 | 3-5",
+    },
+    deminaur: {
+      name: "Alex de Minaur",
+      initial: "A",
+      girone: "Jimmy Connors",
+      stats: "1-2 | 3-5",
+    },
+    augeraliassime: {
+      name: "Felix Auger-Aliassime",
+      initial: "F",
+      girone: "Bjorn Borg",
+      stats: "1-2 | 3-5",
+    },
+    musetti: {
+      name: "Lorenzo Musetti",
+      initial: "L",
+      girone: "Jimmy Connors",
+      stats: "0-3 | 1-6",
+    },
   };
 
   // Stato del torneo
@@ -20,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
     green: { first: null, second: null },
     red: { first: null, second: null },
     semifinals: { semifinal1: null, semifinal2: null },
-    final: { winner: null }
+    final: { winner: null },
   };
 
   // Elementi UI
@@ -43,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function generateGroups() {
     // Raggruppa i giocatori per girone
     const playersByGroup = {};
-    
+
     Object.entries(players).forEach(([playerId, playerData]) => {
       const groupName = playerData.girone;
       if (!playersByGroup[groupName]) {
@@ -53,11 +94,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Crea i gironi
-    Object.entries(playersByGroup).forEach(([groupName, groupPlayers], index) => {
-      const groupId = index === 0 ? "green" : "red";
-      const groupElement = createGroupElement(groupName, groupId, groupPlayers);
-      groupsContainer.appendChild(groupElement);
-    });
+    Object.entries(playersByGroup).forEach(
+      ([groupName, groupPlayers], index) => {
+        const groupId = index === 0 ? "green" : "red";
+        const groupElement = createGroupElement(
+          groupName,
+          groupId,
+          groupPlayers
+        );
+        groupsContainer.appendChild(groupElement);
+      }
+    );
 
     // Ri-setup degli event listeners per i giocatori appena creati
     setupPlayerEventListeners();
@@ -75,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
     groupDiv.appendChild(title);
 
     // Aggiungi i giocatori al girone
-    players.forEach(player => {
+    players.forEach((player) => {
       const playerElement = createPlayerElement(player, groupId);
       groupDiv.appendChild(playerElement);
     });
@@ -94,8 +141,8 @@ document.addEventListener("DOMContentLoaded", function () {
       <div class="player-icon">${player.initial}</div>
       <span class="player-name">${player.name}</span>
       <div class="player-stats">
-        <span>${player.stats.split(' | ')[0]}</span>
-        <span>${player.stats.split(' | ')[1]}</span>
+        <span>${player.stats.split(" | ")[0]}</span>
+        <span>${player.stats.split(" | ")[1]}</span>
       </div>
     `;
 
@@ -111,7 +158,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Reset del torneo
-    document.getElementById("reset-button").addEventListener("click", resetTournament);
+    document
+      .getElementById("reset-button")
+      .addEventListener("click", resetTournament);
 
     // Invio del pronostico
     submitButton.addEventListener("click", function () {
@@ -133,7 +182,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const group = this.dataset.group;
         const playerId = this.dataset.player;
 
-        if (tournamentState[group].first !== playerId && tournamentState[group].second !== playerId) {
+        if (
+          tournamentState[group].first !== playerId &&
+          tournamentState[group].second !== playerId
+        ) {
           if (!tournamentState[group].first) {
             tournamentState[group].first = playerId;
             this.classList.add("selected-first");
@@ -157,27 +209,29 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Selezione vincitori delle semifinali
-    document.querySelectorAll("#semifinal1 .match-player, #semifinal2 .match-player").forEach((player) => {
-      player.addEventListener("click", function () {
-        const match = this.closest(".match");
-        const matchId = match.id;
+    document
+      .querySelectorAll("#semifinal1 .match-player, #semifinal2 .match-player")
+      .forEach((player) => {
+        player.addEventListener("click", function () {
+          const match = this.closest(".match");
+          const matchId = match.id;
 
-        match.querySelectorAll(".match-player").forEach((p) => {
-          p.classList.remove("winner");
+          match.querySelectorAll(".match-player").forEach((p) => {
+            p.classList.remove("winner");
+          });
+
+          this.classList.add("winner");
+
+          if (matchId === "semifinal1") {
+            tournamentState.semifinals.semifinal1 = this.dataset.player;
+          } else {
+            tournamentState.semifinals.semifinal2 = this.dataset.player;
+          }
+
+          updateFinal();
+          updateSubmitButtonState();
         });
-
-        this.classList.add("winner");
-
-        if (matchId === "semifinal1") {
-          tournamentState.semifinals.semifinal1 = this.dataset.player;
-        } else {
-          tournamentState.semifinals.semifinal2 = this.dataset.player;
-        }
-
-        updateFinal();
-        updateSubmitButtonState();
       });
-    });
 
     // Selezione vincitore della finale
     document.querySelectorAll("#final .match-player").forEach((player) => {
@@ -214,7 +268,8 @@ document.addEventListener("DOMContentLoaded", function () {
       resetPlayerPlaceholder(player);
     });
 
-    document.getElementById("champion-name").textContent = "Seleziona i vincitori";
+    document.getElementById("champion-name").textContent =
+      "Seleziona i vincitori";
     updateSubmitButtonState();
   }
 
@@ -224,10 +279,14 @@ document.addEventListener("DOMContentLoaded", function () {
       const greenFirstPlayer = players[tournamentState.green.first];
       const redSecondPlayer = players[tournamentState.red.second];
 
-      const greenFirstElement = document.querySelector('#semifinal1 .match-player[data-player="green-first"]');
+      const greenFirstElement = document.querySelector(
+        '#semifinal1 .match-player[data-player="green-first"]'
+      );
       updatePlayerElement(greenFirstElement, greenFirstPlayer);
 
-      const redSecondElement = document.querySelector('#semifinal1 .match-player[data-player="red-second"]');
+      const redSecondElement = document.querySelector(
+        '#semifinal1 .match-player[data-player="red-second"]'
+      );
       updatePlayerElement(redSecondElement, redSecondPlayer);
     }
 
@@ -235,17 +294,24 @@ document.addEventListener("DOMContentLoaded", function () {
       const redFirstPlayer = players[tournamentState.red.first];
       const greenSecondPlayer = players[tournamentState.green.second];
 
-      const redFirstElement = document.querySelector('#semifinal2 .match-player[data-player="red-first"]');
+      const redFirstElement = document.querySelector(
+        '#semifinal2 .match-player[data-player="red-first"]'
+      );
       updatePlayerElement(redFirstElement, redFirstPlayer);
 
-      const greenSecondElement = document.querySelector('#semifinal2 .match-player[data-player="green-second"]');
+      const greenSecondElement = document.querySelector(
+        '#semifinal2 .match-player[data-player="green-second"]'
+      );
       updatePlayerElement(greenSecondElement, greenSecondPlayer);
     }
   }
 
   // Funzione per aggiornare la finale
   function updateFinal() {
-    if (tournamentState.semifinals.semifinal1 && tournamentState.semifinals.semifinal2) {
+    if (
+      tournamentState.semifinals.semifinal1 &&
+      tournamentState.semifinals.semifinal2
+    ) {
       let semifinal1Winner, semifinal2Winner;
 
       if (tournamentState.semifinals.semifinal1 === "green-first") {
@@ -260,10 +326,14 @@ document.addEventListener("DOMContentLoaded", function () {
         semifinal2Winner = players[tournamentState.green.second];
       }
 
-      const finalPlayer1 = document.querySelector('#final .match-player[data-player="semifinal1-winner"]');
+      const finalPlayer1 = document.querySelector(
+        '#final .match-player[data-player="semifinal1-winner"]'
+      );
       updatePlayerElement(finalPlayer1, semifinal1Winner);
 
-      const finalPlayer2 = document.querySelector('#final .match-player[data-player="semifinal2-winner"]');
+      const finalPlayer2 = document.querySelector(
+        '#final .match-player[data-player="semifinal2-winner"]'
+      );
       updatePlayerElement(finalPlayer2, semifinal2Winner);
     }
   }
@@ -329,21 +399,24 @@ document.addEventListener("DOMContentLoaded", function () {
           second: players[tournamentState.red.second].name,
         },
         semifinals: {
-          semifinal1: tournamentState.semifinals.semifinal1 === "green-first"
-            ? players[tournamentState.green.first].name
-            : players[tournamentState.red.second].name,
-          semifinal2: tournamentState.semifinals.semifinal2 === "red-first"
-            ? players[tournamentState.red.first].name
-            : players[tournamentState.green.second].name,
+          semifinal1:
+            tournamentState.semifinals.semifinal1 === "green-first"
+              ? players[tournamentState.green.first].name
+              : players[tournamentState.red.second].name,
+          semifinal2:
+            tournamentState.semifinals.semifinal2 === "red-first"
+              ? players[tournamentState.red.first].name
+              : players[tournamentState.green.second].name,
         },
         final: {
-          winner: tournamentState.final.winner === "semifinal1-winner"
-            ? tournamentState.semifinals.semifinal1 === "green-first"
-              ? players[tournamentState.green.first].name
-              : players[tournamentState.red.second].name
-            : tournamentState.semifinals.semifinal2 === "red-first"
-            ? players[tournamentState.red.first].name
-            : players[tournamentState.green.second].name,
+          winner:
+            tournamentState.final.winner === "semifinal1-winner"
+              ? tournamentState.semifinals.semifinal1 === "green-first"
+                ? players[tournamentState.green.first].name
+                : players[tournamentState.red.second].name
+              : tournamentState.semifinals.semifinal2 === "red-first"
+              ? players[tournamentState.red.first].name
+              : players[tournamentState.green.second].name,
         },
       },
     };
@@ -403,21 +476,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (placeholders[playerData]) {
       player.querySelector("span").textContent = placeholders[playerData].text;
-      player.querySelector(".player-icon").textContent = placeholders[playerData].icon;
+      player.querySelector(".player-icon").textContent =
+        placeholders[playerData].icon;
     }
   }
 
   function saveToLocalStorage(predictionData, serverId = null) {
     const localId = serverId || `local_${Date.now()}`;
     try {
-      const existingPredictions = JSON.parse(localStorage.getItem("atpPredictions")) || [];
+      const existingPredictions =
+        JSON.parse(localStorage.getItem("atpPredictions")) || [];
       existingPredictions.push({
         ...predictionData,
         id: localId,
         timestamp: new Date().toISOString(),
         serverId: serverId,
       });
-      localStorage.setItem("atpPredictions", JSON.stringify(existingPredictions));
+      localStorage.setItem(
+        "atpPredictions",
+        JSON.stringify(existingPredictions)
+      );
       return localId;
     } catch (e) {
       console.error("Errore salvataggio locale:", e);
