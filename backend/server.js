@@ -101,6 +101,8 @@ app.get("/health", (req, res) => {
   res.json({ status: "OK", timestamp: new Date().toISOString() });
 });
 
+app.get("/svolgimento/finals", (req, res) => res.render("home"));
+
 // Avvia il server
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`✅ Server ATP Finals running on port ${PORT}`);
