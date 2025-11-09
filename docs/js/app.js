@@ -1,66 +1,57 @@
 document.addEventListener("DOMContentLoaded", function () {
   // URL del backend Heroku
-  const BACKEND_URL =
-    "https://atp-finals-backend-popostapo-7edfa465e9dd.herokuapp.com";
+  const BACKEND_URL = "https://atp-finals-backend-popostapo-7edfa465e9dd.herokuapp.com";
 
   // Mappa dei giocatori con sistema punti
   const players = {
-    alcaraz: {
-      name: "Carlos Alcaraz",
-      initial: "C",
+    alcaraz: { 
+      name: "Carlos Alcaraz", 
+      initial: "C", 
       girone: "Jimmy Connors",
-      stats: "2-1 | 5-3",
-      basePoints: 20, // Come secondo classificato
+      basePoints: 20  // Come secondo classificato
     },
-    sinner: {
-      name: "Jannik Sinner",
-      initial: "J",
+    sinner: { 
+      name: "Jannik Sinner", 
+      initial: "J", 
       girone: "Bjorn Borg",
-      stats: "2-1 | 5-3",
-      basePoints: 20, // Come secondo classificato
+      basePoints: 20  // Come secondo classificato
     },
-    zverev: {
-      name: "Alexander Zverev",
-      initial: "A",
+    zverev: { 
+      name: "Alexander Zverev", 
+      initial: "A", 
       girone: "Bjorn Borg",
-      stats: "1-2 | 4-5",
-      basePoints: 40, // Come secondo classificato
+      basePoints: 40  // Come secondo classificato
     },
-    fritz: {
-      name: "Taylor Fritz",
-      initial: "T",
+    fritz: { 
+      name: "Taylor Fritz", 
+      initial: "T", 
       girone: "Jimmy Connors",
-      stats: "1-2 | 3-5",
-      basePoints: 40, // Come secondo classificato
+      basePoints: 40  // Come secondo classificato
     },
-    shelton: {
-      name: "Ben Shelton",
-      initial: "B",
+    shelton: { 
+      name: "Ben Shelton", 
+      initial: "B", 
       girone: "Bjorn Borg",
-      stats: "0-3 | 1-6",
-      basePoints: 80, // Come secondo classificato
+      basePoints: 80  // Come secondo classificato
     },
-    deminaur: {
-      name: "Alex de Minaur",
-      initial: "A",
+    deminaur: { 
+      name: "Alex de Minaur", 
+      initial: "A", 
       girone: "Jimmy Connors",
-      stats: "1-2 | 3-5",
-      basePoints: 80, // Come secondo classificato
+      basePoints: 80  // Come secondo classificato
     },
-    augeraliassime: {
-      name: "Felix Auger-Aliassime",
-      initial: "F",
+    augeraliassime: { 
+      name: "Felix Auger-Aliassime", 
+      initial: "F", 
       girone: "Bjorn Borg",
-      stats: "1-2 | 3-5",
-      basePoints: 160, // Come secondo classificato
+      basePoints: 160  // Come secondo classificato
     },
-    musetti: {
-      name: "Lorenzo Musetti",
-      initial: "L",
+    musetti: { 
+      name: "Lorenzo Musetti", 
+      initial: "L", 
       girone: "Jimmy Connors",
-      stats: "0-3 | 1-6",
-      basePoints: 160, // Come secondo classificato
-    },
+      basePoints: 160  // Come secondo classificato
+    }
   };
 
   // Stato del torneo
@@ -72,8 +63,8 @@ document.addEventListener("DOMContentLoaded", function () {
     final: { winner: null },
     points: {
       total: 0,
-      breakdown: [],
-    },
+      breakdown: []
+    }
   };
 
   // Elementi UI
@@ -99,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function generateGroups() {
     // Raggruppa i giocatori per girone
     const playersByGroup = {};
-
+    
     Object.entries(players).forEach(([playerId, playerData]) => {
       const groupName = playerData.girone;
       if (!playersByGroup[groupName]) {
@@ -109,17 +100,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Crea i gironi
-    Object.entries(playersByGroup).forEach(
-      ([groupName, groupPlayers], index) => {
-        const groupId = index === 0 ? "green" : "red";
-        const groupElement = createGroupElement(
-          groupName,
-          groupId,
-          groupPlayers
-        );
-        groupsContainer.appendChild(groupElement);
-      }
-    );
+    Object.entries(playersByGroup).forEach(([groupName, groupPlayers], index) => {
+      const groupId = index === 0 ? "green" : "red";
+      const groupElement = createGroupElement(groupName, groupId, groupPlayers);
+      groupsContainer.appendChild(groupElement);
+    });
 
     // Ri-setup degli event listeners per i giocatori appena creati
     setupPlayerEventListeners();
@@ -137,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
     groupDiv.appendChild(title);
 
     // Aggiungi i giocatori al girone
-    players.forEach((player) => {
+    players.forEach(player => {
       const playerElement = createPlayerElement(player, groupId);
       groupDiv.appendChild(playerElement);
     });
@@ -155,10 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
     playerDiv.innerHTML = `
       <div class="player-icon">${player.initial}</div>
       <span class="player-name">${player.name}</span>
-      <div class="player-stats">
-        <span>${player.stats.split(" | ")[0]}</span>
-        <span>${player.stats.split(" | ")[1]}</span>
-      </div>
+      <div class="player-stats"></div>
     `;
 
     return playerDiv;
@@ -169,36 +151,62 @@ document.addEventListener("DOMContentLoaded", function () {
     let totalPoints = 0;
     const breakdown = [];
 
-    // Punti per i gironi
-    Object.entries(tournamentState).forEach(([groupKey, groupData]) => {
-      if (groupKey === "green" || groupKey === "red") {
-        // Primo classificato - doppio punti
-        if (groupData.first) {
-          const player = players[groupData.first];
-          const points = player.basePoints * 2;
-          totalPoints += points;
-          breakdown.push({
-            type: "Primo Classificato",
-            player: player.name,
-            points: points,
-            group: groupKey === "green" ? "Jimmy Connors" : "Bjorn Borg",
-          });
-        }
+    // DEBUG: Log dello stato corrente
+    console.log("Stato torneo:", tournamentState);
 
-        // Secondo classificato - punti base
-        if (groupData.second) {
-          const player = players[groupData.second];
-          const points = player.basePoints;
-          totalPoints += points;
-          breakdown.push({
-            type: "Secondo Classificato",
-            player: player.name,
-            points: points,
-            group: groupKey === "green" ? "Jimmy Connors" : "Bjorn Borg",
-          });
-        }
-      }
-    });
+    // Punti per i gironi - Jimmy Connors (green)
+    if (tournamentState.green.first) {
+      const player = players[tournamentState.green.first];
+      const points = player.basePoints * 2; // Doppio punti per primo classificato
+      totalPoints += points;
+      breakdown.push({
+        type: 'Primo Classificato',
+        player: player.name,
+        points: points,
+        group: 'Jimmy Connors'
+      });
+      console.log(`Primo Jimmy Connors: ${player.name} - ${points} punti`);
+    }
+
+    if (tournamentState.green.second) {
+      const player = players[tournamentState.green.second];
+      const points = player.basePoints; // Punti base per secondo classificato
+      totalPoints += points;
+      breakdown.push({
+        type: 'Secondo Classificato',
+        player: player.name,
+        points: points,
+        group: 'Jimmy Connors'
+      });
+      console.log(`Secondo Jimmy Connors: ${player.name} - ${points} punti`);
+    }
+
+    // Punti per i gironi - Bjorn Borg (red)
+    if (tournamentState.red.first) {
+      const player = players[tournamentState.red.first];
+      const points = player.basePoints * 2; // Doppio punti per primo classificato
+      totalPoints += points;
+      breakdown.push({
+        type: 'Primo Classificato',
+        player: player.name,
+        points: points,
+        group: 'Bjorn Borg'
+      });
+      console.log(`Primo Bjorn Borg: ${player.name} - ${points} punti`);
+    }
+
+    if (tournamentState.red.second) {
+      const player = players[tournamentState.red.second];
+      const points = player.basePoints; // Punti base per secondo classificato
+      totalPoints += points;
+      breakdown.push({
+        type: 'Secondo Classificato',
+        player: player.name,
+        points: points,
+        group: 'Bjorn Borg'
+      });
+      console.log(`Secondo Bjorn Borg: ${player.name} - ${points} punti`);
+    }
 
     // Punti per le semifinali (vincitori)
     if (tournamentState.semifinals.semifinal1) {
@@ -211,11 +219,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const points = 50; // Punti fissi per semifinale vinta
       totalPoints += points;
       breakdown.push({
-        type: "Vincitore Semifinale",
+        type: 'Vincitore Semifinale',
         player: semifinal1Winner.name,
         points: points,
-        group: "Semifinale 1",
+        group: 'Semifinale 1'
       });
+      console.log(`Semifinale 1: ${semifinal1Winner.name} - ${points} punti`);
     }
 
     if (tournamentState.semifinals.semifinal2) {
@@ -228,11 +237,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const points = 50; // Punti fissi per semifinale vinta
       totalPoints += points;
       breakdown.push({
-        type: "Vincitore Semifinale",
+        type: 'Vincitore Semifinale',
         player: semifinal2Winner.name,
         points: points,
-        group: "Semifinale 2",
+        group: 'Semifinale 2'
       });
+      console.log(`Semifinale 2: ${semifinal2Winner.name} - ${points} punti`);
     }
 
     // Punti per il campione
@@ -254,16 +264,20 @@ document.addEventListener("DOMContentLoaded", function () {
       const points = 100; // Punti fissi per campione
       totalPoints += points;
       breakdown.push({
-        type: "Campione",
+        type: 'Campione',
         player: champion.name,
         points: points,
-        group: "Finale",
+        group: 'Finale'
       });
+      console.log(`Campione: ${champion.name} - ${points} punti`);
     }
+
+    console.log("Punteggio totale calcolato:", totalPoints);
+    console.log("Breakdown:", breakdown);
 
     tournamentState.points = {
       total: totalPoints,
-      breakdown: breakdown,
+      breakdown: breakdown
     };
 
     return { total: totalPoints, breakdown: breakdown };
@@ -272,15 +286,15 @@ document.addEventListener("DOMContentLoaded", function () {
   // Aggiorna la visualizzazione del punteggio
   function updateScoreDisplay() {
     const points = calculatePoints();
-
-    if (points.total > 0) {
-      scoreSection.style.display = "block";
-
+    
+    if (points.breakdown.length > 0) {
+      scoreSection.style.display = 'block';
+      
       // Aggiorna il dettaglio punti
-      scoreBreakdown.innerHTML = "";
-      points.breakdown.forEach((item) => {
-        const scoreItem = document.createElement("div");
-        scoreItem.className = "score-item";
+      scoreBreakdown.innerHTML = '';
+      points.breakdown.forEach(item => {
+        const scoreItem = document.createElement('div');
+        scoreItem.className = 'score-item';
         scoreItem.innerHTML = `
           <div class="score-info">
             <div class="score-player">${item.player}</div>
@@ -290,11 +304,11 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         scoreBreakdown.appendChild(scoreItem);
       });
-
+      
       // Aggiorna il totale
       totalPointsElement.textContent = points.total;
     } else {
-      scoreSection.style.display = "none";
+      scoreSection.style.display = 'none';
     }
   }
 
@@ -307,9 +321,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Reset del torneo
-    document
-      .getElementById("reset-button")
-      .addEventListener("click", resetTournament);
+    document.getElementById("reset-button").addEventListener("click", resetTournament);
 
     // Invio del pronostico
     submitButton.addEventListener("click", function () {
@@ -331,10 +343,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const group = this.dataset.group;
         const playerId = this.dataset.player;
 
-        if (
-          tournamentState[group].first !== playerId &&
-          tournamentState[group].second !== playerId
-        ) {
+        if (tournamentState[group].first !== playerId && tournamentState[group].second !== playerId) {
           if (!tournamentState[group].first) {
             tournamentState[group].first = playerId;
             this.classList.add("selected-first");
@@ -359,30 +368,28 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Selezione vincitori delle semifinali
-    document
-      .querySelectorAll("#semifinal1 .match-player, #semifinal2 .match-player")
-      .forEach((player) => {
-        player.addEventListener("click", function () {
-          const match = this.closest(".match");
-          const matchId = match.id;
+    document.querySelectorAll("#semifinal1 .match-player, #semifinal2 .match-player").forEach((player) => {
+      player.addEventListener("click", function () {
+        const match = this.closest(".match");
+        const matchId = match.id;
 
-          match.querySelectorAll(".match-player").forEach((p) => {
-            p.classList.remove("winner");
-          });
-
-          this.classList.add("winner");
-
-          if (matchId === "semifinal1") {
-            tournamentState.semifinals.semifinal1 = this.dataset.player;
-          } else {
-            tournamentState.semifinals.semifinal2 = this.dataset.player;
-          }
-
-          updateFinal();
-          updateScoreDisplay();
-          updateSubmitButtonState();
+        match.querySelectorAll(".match-player").forEach((p) => {
+          p.classList.remove("winner");
         });
+
+        this.classList.add("winner");
+
+        if (matchId === "semifinal1") {
+          tournamentState.semifinals.semifinal1 = this.dataset.player;
+        } else {
+          tournamentState.semifinals.semifinal2 = this.dataset.player;
+        }
+
+        updateFinal();
+        updateScoreDisplay();
+        updateSubmitButtonState();
       });
+    });
 
     // Selezione vincitore della finale
     document.querySelectorAll("#final .match-player").forEach((player) => {
@@ -421,8 +428,7 @@ document.addEventListener("DOMContentLoaded", function () {
       resetPlayerPlaceholder(player);
     });
 
-    document.getElementById("champion-name").textContent =
-      "Seleziona i vincitori";
+    document.getElementById("champion-name").textContent = "Seleziona i vincitori";
     updateScoreDisplay();
     updateSubmitButtonState();
   }
@@ -433,14 +439,10 @@ document.addEventListener("DOMContentLoaded", function () {
       const greenFirstPlayer = players[tournamentState.green.first];
       const redSecondPlayer = players[tournamentState.red.second];
 
-      const greenFirstElement = document.querySelector(
-        '#semifinal1 .match-player[data-player="green-first"]'
-      );
+      const greenFirstElement = document.querySelector('#semifinal1 .match-player[data-player="green-first"]');
       updatePlayerElement(greenFirstElement, greenFirstPlayer);
 
-      const redSecondElement = document.querySelector(
-        '#semifinal1 .match-player[data-player="red-second"]'
-      );
+      const redSecondElement = document.querySelector('#semifinal1 .match-player[data-player="red-second"]');
       updatePlayerElement(redSecondElement, redSecondPlayer);
     }
 
@@ -448,24 +450,17 @@ document.addEventListener("DOMContentLoaded", function () {
       const redFirstPlayer = players[tournamentState.red.first];
       const greenSecondPlayer = players[tournamentState.green.second];
 
-      const redFirstElement = document.querySelector(
-        '#semifinal2 .match-player[data-player="red-first"]'
-      );
+      const redFirstElement = document.querySelector('#semifinal2 .match-player[data-player="red-first"]');
       updatePlayerElement(redFirstElement, redFirstPlayer);
 
-      const greenSecondElement = document.querySelector(
-        '#semifinal2 .match-player[data-player="green-second"]'
-      );
+      const greenSecondElement = document.querySelector('#semifinal2 .match-player[data-player="green-second"]');
       updatePlayerElement(greenSecondElement, greenSecondPlayer);
     }
   }
 
   // Funzione per aggiornare la finale
   function updateFinal() {
-    if (
-      tournamentState.semifinals.semifinal1 &&
-      tournamentState.semifinals.semifinal2
-    ) {
+    if (tournamentState.semifinals.semifinal1 && tournamentState.semifinals.semifinal2) {
       let semifinal1Winner, semifinal2Winner;
 
       if (tournamentState.semifinals.semifinal1 === "green-first") {
@@ -480,14 +475,10 @@ document.addEventListener("DOMContentLoaded", function () {
         semifinal2Winner = players[tournamentState.green.second];
       }
 
-      const finalPlayer1 = document.querySelector(
-        '#final .match-player[data-player="semifinal1-winner"]'
-      );
+      const finalPlayer1 = document.querySelector('#final .match-player[data-player="semifinal1-winner"]');
       updatePlayerElement(finalPlayer1, semifinal1Winner);
 
-      const finalPlayer2 = document.querySelector(
-        '#final .match-player[data-player="semifinal2-winner"]'
-      );
+      const finalPlayer2 = document.querySelector('#final .match-player[data-player="semifinal2-winner"]');
       updatePlayerElement(finalPlayer2, semifinal2Winner);
     }
   }
@@ -553,27 +544,24 @@ document.addEventListener("DOMContentLoaded", function () {
           second: players[tournamentState.red.second].name,
         },
         semifinals: {
-          semifinal1:
-            tournamentState.semifinals.semifinal1 === "green-first"
-              ? players[tournamentState.green.first].name
-              : players[tournamentState.red.second].name,
-          semifinal2:
-            tournamentState.semifinals.semifinal2 === "red-first"
-              ? players[tournamentState.red.first].name
-              : players[tournamentState.green.second].name,
+          semifinal1: tournamentState.semifinals.semifinal1 === "green-first"
+            ? players[tournamentState.green.first].name
+            : players[tournamentState.red.second].name,
+          semifinal2: tournamentState.semifinals.semifinal2 === "red-first"
+            ? players[tournamentState.red.first].name
+            : players[tournamentState.green.second].name,
         },
         final: {
-          winner:
-            tournamentState.final.winner === "semifinal1-winner"
-              ? tournamentState.semifinals.semifinal1 === "green-first"
-                ? players[tournamentState.green.first].name
-                : players[tournamentState.red.second].name
-              : tournamentState.semifinals.semifinal2 === "red-first"
-              ? players[tournamentState.red.first].name
-              : players[tournamentState.green.second].name,
+          winner: tournamentState.final.winner === "semifinal1-winner"
+            ? tournamentState.semifinals.semifinal1 === "green-first"
+              ? players[tournamentState.green.first].name
+              : players[tournamentState.red.second].name
+            : tournamentState.semifinals.semifinal2 === "red-first"
+            ? players[tournamentState.red.first].name
+            : players[tournamentState.green.second].name,
         },
       },
-      points: tournamentState.points,
+      points: tournamentState.points
     };
 
     try {
@@ -631,26 +619,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (placeholders[playerData]) {
       player.querySelector("span").textContent = placeholders[playerData].text;
-      player.querySelector(".player-icon").textContent =
-        placeholders[playerData].icon;
+      player.querySelector(".player-icon").textContent = placeholders[playerData].icon;
     }
   }
 
   function saveToLocalStorage(predictionData, serverId = null) {
     const localId = serverId || `local_${Date.now()}`;
     try {
-      const existingPredictions =
-        JSON.parse(localStorage.getItem("atpPredictions")) || [];
+      const existingPredictions = JSON.parse(localStorage.getItem("atpPredictions")) || [];
       existingPredictions.push({
         ...predictionData,
         id: localId,
         timestamp: new Date().toISOString(),
         serverId: serverId,
       });
-      localStorage.setItem(
-        "atpPredictions",
-        JSON.stringify(existingPredictions)
-      );
+      localStorage.setItem("atpPredictions", JSON.stringify(existingPredictions));
       return localId;
     } catch (e) {
       console.error("Errore salvataggio locale:", e);
