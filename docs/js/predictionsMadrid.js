@@ -1,7 +1,7 @@
 export const predictions = [
   {
     name: "Martina",
-    img: "../immagini/Marti.jpg",
+    img: "../img/Marti.jpg",
     winner: "Andrey Rublev",
     semi1: "Holger Rune",
     semi2: "Novak Djokovic",
@@ -19,7 +19,7 @@ export const predictions = [
 
   {
     name: "Nata",
-    img: "../immagini/serena_williams.jpg",
+    img: "../img/serena_williams.jpg",
     winner: "Alexander Zverev",
     semi1: "Novak Djokovic",
     semi2: "Taylor Fritz",
@@ -35,7 +35,7 @@ export const predictions = [
   },
   {
     name: "Cuzzo",
-    img: "../immagini/macroe.png",
+    img: "../img/macroe.png",
     winner: "Ben Shelton",
     semi1: "Alexander Zverev",
     semi2: "Flavio Cobolli",
@@ -59,8 +59,8 @@ export const predictions = [
   },
   {
     name: "Pier",
-    img: "../immagini/kasatkina.jpg",
-    //img: "../immagini/Ugo.png",
+    img: "../img/kasatkina.jpg",
+    //img: "../img/Ugo.png",
     winner: "Alex de Minaur",
     semi1: "Alexander Zverev",
     semi2: "Jack Draper",
@@ -68,7 +68,7 @@ export const predictions = [
   },
   {
     name: "Piero",
-    img: "../immagini/agassi.png",
+    img: "../img/agassi.png",
     winner: "Arthur Fils",
     semi1: "Holger Rune",
     semi2: "Lorenzo Musetti",
@@ -76,8 +76,8 @@ export const predictions = [
   },
   {
     name: "Rob",
-    img: "../immagini/wavrinka.png",
-    //img: "../immagini/filini.png",
+    img: "../img/wavrinka.png",
+    //img: "../img/filini.png",
     winner: "Jack Draper",
     semi1: "Holger Rune",
     semi2: "Grigor Dimitrov",
@@ -86,7 +86,7 @@ export const predictions = [
   /*
   {
     name: "Apollo",
-    img: "../immagini/apollo.jpg",
+    img: "../img/apollo.jpg",
     winner: "Jakub Mensik",
     semi1: "Novak Djokovic",
     semi2: "Taylor Fritz",

@@ -1,7 +1,7 @@
 export const predictions = [
   {
     name: "Martina",
-    img: "../immagini/Marti.jpg",
+    img: "../img/Marti.jpg",
     winner: "Carlos Alcaraz",
     semi1: "Daniil Medvedev",
     semi2: "Taylor Fritz",
@@ -19,7 +19,7 @@ export const predictions = [
 
   {
     name: "Nata",
-    img: "../immagini/serena_williams.jpg",
+    img: "../img/serena_williams.jpg",
     winner: "Taylor Fritz",
     semi1: "Carlos Alcaraz",
     semi2: "Alexander Zverev",
@@ -35,7 +35,7 @@ export const predictions = [
   },
   {
     name: "Cuzzo",
-    img: "../immagini/macroe.png",
+    img: "../img/macroe.png",
     winner: "Taylor Fritz",
     semi1: "Alexander Zverev",
     semi2: "Lorenzo Musetti",
@@ -60,7 +60,7 @@ export const predictions = [
   {
     name: "Pier",
     img: "https://www.tennisworlditalia.com/imgb/40869/la-rivista-gq-descrive-federer-come-il-migliore-di-sempre-e-partono-le-critiche.webp",
-    //img: "../immagini/Ugo.png",
+    //img: "../img/Ugo.png",
     winner: "Alexander Zverev",
     semi1: "Daniil Medvedev",
     semi2: "Matteo Berrettini",
@@ -68,7 +68,7 @@ export const predictions = [
   },
   {
     name: "Piero",
-    img: "../immagini/agassi.png",
+    img: "../img/agassi.png",
     winner: "Ben Shelton",
     semi1: "Jack Draper",
     semi2: "Stefanos Tsitsipas",
@@ -76,8 +76,8 @@ export const predictions = [
   },
   {
     name: "Rob",
-    img: "../immagini/wavrinka.png",
-    //img: "../immagini/filini.png",
+    img: "../img/wavrinka.png",
+    //img: "../img/filini.png",
     winner: "Holger Rune",
     semi1: "Hubert Hurkacz",
     semi2: "Federico Cina",
@@ -85,7 +85,7 @@ export const predictions = [
   },
   {
     name: "Apollo",
-    img: "../immagini/apollo.jpg",
+    img: "../img/apollo.jpg",
     winner: "Jakub Mensik",
     semi1: "Novak Djokovic",
     semi2: "Taylor Fritz",

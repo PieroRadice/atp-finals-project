@@ -9,7 +9,7 @@ export const predictions = [
   },
   {
     name: "Cuzzo",
-    img: "../immagini/macroe.png",
+    img: "../img/macroe.png",
     winner: "Jannik Sinner",
     semi1: "Taylor Fritz",
     semi2: "Carlos Alcaraz",
@@ -49,7 +49,7 @@ export const predictions = [
   },
   {
     name: "Rob",
-    img: "../immagini/wavrinka.png",
+    img: "../img/wavrinka.png",
     semi3: "Alexander Zverev",
     semi1: "Carlos Alcaraz",
     semi2: "Jannik Sinner",
@@ -57,7 +57,7 @@ export const predictions = [
   },
   {
     name: "Piero",
-    img: "../immagini/agassi.png",
+    img: "../img/agassi.png",
     winner: "Taylor Fritz",
     semi1: "Jannik Sinner",
     semi2: "Jack Draper",

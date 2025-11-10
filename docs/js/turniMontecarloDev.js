@@ -161,7 +161,7 @@ export async function creaColonne(tournamentID, turno) {
     const headerCell = document.createElement("div");
     headerCell.className = "header-cell";
     headerCell.innerHTML = `
-    <img src="../../immagini/${prediction.img}" alt="Immagine ${prediction.name}" />
+    <img src="../../img/${prediction.img}" alt="Immagine ${prediction.name}" />
     ${user.name}
   `;
     column.appendChild(headerCell);

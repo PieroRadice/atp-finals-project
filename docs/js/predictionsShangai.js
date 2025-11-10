@@ -1,7 +1,7 @@
 export const predictions = [
   {
     name: "Martina",
-    img: "../immagini/Marti.jpg",
+    img: "../img/Marti.jpg",
     winner: "Jannik Sinner",
     semi1: "Lorenzo Musetti",
     semi2: "Novak Djokovic",
@@ -10,7 +10,7 @@ export const predictions = [
   {
     name: "Mix",
     //img: "https://compass-media.vogue.it/photos/6481dae3e03ab1e612092926/3:4/w_1920,c_limit/3241967",
-    img: "../immagini/filini.png",
+    img: "../img/filini.png",
     winner: "Jannik Sinner",
     semi1: "Flavio Cobolli",
     semi2: "Taylor Fritz",
@@ -18,8 +18,8 @@ export const predictions = [
   },
   {
     name: "Nata",
-    img: "../immagini/Ugo.png",
-    //img: "../immagini/serena_williams.jpg",
+    img: "../img/Ugo.png",
+    //img: "../img/serena_williams.jpg",
     winner: "Jannik Sinner",
     semi1: "Taylor Fritz",
     semi2: "Karen Khachanov",
@@ -35,8 +35,8 @@ export const predictions = [
   },
   {
     name: "Cuzzo",
-    //img: "../immagini/macroe.png",
-    img: "../immagini/PINA.png",
+    //img: "../img/macroe.png",
+    img: "../img/PINA.png",
     winner: "Jannik Sinner",
     semi1: "Ben Shelton",
     semi2: "Lorenzo Musetti",
@@ -60,8 +60,8 @@ export const predictions = [
   },
   {
     name: "Pier",
-    //img: "../immagini/kasatkina.jpg",
-    img: "../immagini/MARIANGELA.png",
+    //img: "../img/kasatkina.jpg",
+    img: "../img/MARIANGELA.png",
 
     winner: "Jannik Sinner",
     semi1: "Alex de Minaur",
@@ -70,7 +70,7 @@ export const predictions = [
   },
   {
     name: "Piero",
-    img: "../immagini/agassi.png",
+    img: "../img/agassi.png",
     winner: "Jannik Sinner",
     semi1: "Gabriel Diallo",
     semi2: "Novak Djokovic",
@@ -78,7 +78,7 @@ export const predictions = [
   },
   {
     name: "Rob",
-    img: "../immagini/wavrinka.png",
+    img: "../img/wavrinka.png",
     winner: "Jannik Sinner",
     semi1: "Daniil Medvedev",
     semi2: "Novak Djokovic",
@@ -87,7 +87,7 @@ export const predictions = [
   /*
   {
     name: "Apollo",
-    img: "../immagini/apollo.jpg",
+    img: "../img/apollo.jpg",
     winner: "Jakub Mensik",
     semi1: "Novak Djokovic",
     semi2: "Taylor Fritz",

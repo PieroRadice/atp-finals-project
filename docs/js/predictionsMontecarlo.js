@@ -1,7 +1,7 @@
 export const predictions = [
   {
     name: "Martina",
-    img: "../immagini/Marti.jpg",
+    img: "../img/Marti.jpg",
     winner: "Alexander Zverev",
     semi1: "Carlos Alcaraz",
     semi2: "Casper Ruud",
@@ -19,7 +19,7 @@ export const predictions = [
 
   {
     name: "Nata",
-    img: "../immagini/serena_williams.jpg",
+    img: "../img/serena_williams.jpg",
     winner: "Carlos Alcaraz",
     semi1: "Novak Djokovic",
     semi2: "Alexander Zverev",
@@ -35,7 +35,7 @@ export const predictions = [
   },
   {
     name: "Cuzzo",
-    img: "../immagini/macroe.png",
+    img: "../img/macroe.png",
     winner: "Carlos Alcaraz",
     semi1: "Alexander Zverev",
     semi2: "Casper Ruud",
@@ -59,8 +59,8 @@ export const predictions = [
   },
   {
     name: "Paolo",
-    img: "../immagini/Panatta.jpg",
-    //img: "../immagini/filini.png",
+    img: "../img/Panatta.jpg",
+    //img: "../img/filini.png",
     winner: "Andrey Rublev",
     semi1: "Novak Djokovic",
     semi2: "Alexander Zverev",
@@ -68,8 +68,8 @@ export const predictions = [
   },
   {
     name: "Pier",
-    img: "../immagini/kasatkina.jpg",
-    //img: "../immagini/Ugo.png",
+    img: "../img/kasatkina.jpg",
+    //img: "../img/Ugo.png",
     winner: "Stefanos Tsitsipas",
     semi1: "Novak Djokovic",
     semi2: "Jack Draper",
@@ -77,7 +77,7 @@ export const predictions = [
   },
   {
     name: "Piero",
-    img: "../immagini/agassi.png",
+    img: "../img/agassi.png",
     winner: "Stefanos Tsitsipas",
     semi1: "Novak Djokovic",
     semi2: "Ben Shelton",
@@ -85,8 +85,8 @@ export const predictions = [
   },
   {
     name: "Rob",
-    img: "../immagini/wavrinka.png",
-    //img: "../immagini/filini.png",
+    img: "../img/wavrinka.png",
+    //img: "../img/filini.png",
     winner: "Carlos Alcaraz",
     semi1: "Casper Ruud",
     semi2: "Lorenzo Musetti",
@@ -95,7 +95,7 @@ export const predictions = [
   /*
   {
     name: "Apollo",
-    img: "../immagini/apollo.jpg",
+    img: "../img/apollo.jpg",
     winner: "Jakub Mensik",
     semi1: "Novak Djokovic",
     semi2: "Taylor Fritz",

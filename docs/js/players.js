@@ -134,7 +134,7 @@ export const players = {
     semiPoints: 80,
   },
   "Federico Cina": {
-    img: "../immagini/federico_cina.png",
+    img: "../img/federico_cina.png",
     ranking: 441,
     winnerPoints: 10240,
     semiPoints: 2560,

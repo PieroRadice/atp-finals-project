@@ -1,7 +1,7 @@
 export const predictions = [
   {
     name: "Martina",
-    img: "../immagini/Marti.jpg",
+    img: "../img/Marti.jpg",
     winner: "Alexander Zverev",
     semi1: "Carlos Alcaraz",
     semi2: "Ben Shelton",
@@ -17,7 +17,7 @@ export const predictions = [
   },
   {
     name: "Nata",
-    img: "../immagini/serena_williams.jpg",
+    img: "../img/serena_williams.jpg",
     semi1: "Carlos Alcaraz",
     //winner: "Carlos Alcaraz",
     //semi1: "Alexander Zverev",
@@ -35,7 +35,7 @@ export const predictions = [
   },
   {
     name: "Cuzzo",
-    img: "../immagini/macroe.png",
+    img: "../img/macroe.png",
     winner: "Stefanos Tsitsipas",
     semi1: "Matteo Berrettini",
     semi2: "Alexander Zverev",
@@ -69,8 +69,8 @@ export const predictions = [
   },
   {
     name: "Piero",
-    //img: "../immagini/Ugo.png",
-    img: "../immagini/agassi.png",
+    //img: "../img/Ugo.png",
+    img: "../img/agassi.png",
     winner: "Taylor Fritz",
     semi1: "Alexander Zverev",
     semi2: "Lorenzo Musetti",
@@ -78,8 +78,8 @@ export const predictions = [
   },
   {
     name: "Rob",
-    //img: "../immagini/wavrinka.png",
-    img: "../immagini/Ugo.png",
+    //img: "../img/wavrinka.png",
+    img: "../img/Ugo.png",
     winner: "Alexander Zverev",
     semi1: "Ugo Humbert",
     semi2: "Casper Ruud",

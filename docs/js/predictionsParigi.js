@@ -1,7 +1,7 @@
 export const predictions = [
   {
     name: "Martina",
-    img: "../immagini/Marti.jpg",
+    img: "../img/Marti.jpg",
     winner: "Carlos Alcaraz",
     semi1: "Jannik Sinner",
     semi2: "Lorenzo Musetti",
@@ -17,7 +17,7 @@ export const predictions = [
   },
   {
     name: "Nata",
-    img: "../immagini/serena_williams.jpg",
+    img: "../img/serena_williams.jpg",
     winner: "Jannik Sinner",
     semi1: "Novak Djokovic",
     semi2: "Lorenzo Musetti",
@@ -33,7 +33,7 @@ export const predictions = [
   },
   {
     name: "Cuzzo",
-    img: "../immagini/macroe.png",
+    img: "../img/macroe.png",
     winner: "Jannik Sinner",
     semi1: "Lorenzo Musetti",
     semi2: "Carlos Alcaraz",
@@ -57,8 +57,8 @@ export const predictions = [
   },
   {
     name: "Pier",
-    img: "../immagini/kasatkina.jpg",
-    //img: "../immagini/Ugo.png",
+    img: "../img/kasatkina.jpg",
+    //img: "../img/Ugo.png",
     winner: "Carlos Alcaraz",
     semi1: "Jannik Sinner",
     semi2: "Lorenzo Musetti",
@@ -67,7 +67,7 @@ export const predictions = [
 
   {
     name: "Piero",
-    img: "../immagini/agassi.png",
+    img: "../img/agassi.png",
     winner: "Novak Djokovic",
     semi1: "Lorenzo Musetti",
     semi2: "Carlos Alcaraz",
@@ -75,8 +75,8 @@ export const predictions = [
   },
   {
     name: "Rob",
-    img: "../immagini/wavrinka.png",
-    //img: "../immagini/filini.png",
+    img: "../img/wavrinka.png",
+    //img: "../img/filini.png",
     winner: "Corentin Moutet",
     semi1: "Jannik Sinner",
     semi2: "Carlos Alcaraz",
@@ -85,7 +85,7 @@ export const predictions = [
   /*
   {
     name: "Apollo",
-    img: "../immagini/apollo.jpg",
+    img: "../img/apollo.jpg",
     winner: "Jakub Mensik",
     semi1: "Novak Djokovic",
     semi2: "Taylor Fritz",
