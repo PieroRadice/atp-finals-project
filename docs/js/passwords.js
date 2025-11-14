@@ -1,8 +1,15 @@
 // File delle password - salvato come js/passwords.js
 const userPasswords = {
-  Pam: "BellaBella",
+  Lombo: "Cachara",
+  Pam: "Vincere!",
+  Martina: "Espadrillas",
+  Mix: "CiSiBecca",
   Piero: "PieroPiero",
-  Lombo: "MaxMassi",
+  Pier: "ButtoViaTutto!",
+  Nata: "FigliaDelMinistro",
+  Gigi: "Italiani!",
+  Rob: "FightFightFight",
+  Cuzzo: "Marigio",
 };
 
 // Funzione per verificare le credenziali

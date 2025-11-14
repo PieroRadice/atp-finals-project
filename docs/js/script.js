@@ -64,7 +64,7 @@ const tiresia = {
   img: "https://s1.qwant.com/thumbr/372x372/2/b/15117a10d59d26e8bfdf366c11bd116e418c17832e4e815961a56f91a78c00/OIP.d-2rdbqjsslDg4AQHSgENgAAAA.jpg?u=https%3A%2F%2Ftse.mm.bing.net%2Fth%2Fid%2FOIP.d-2rdbqjsslDg4AQHSgENgAAAA%3Fcb%3Ducfimg2%26pid%3DApi%26ucfimg%3D1&q=0&b=1&p=0&a=0",
   scelte: {
     gruppoConnors: { primo: "Carlos Alcaraz", secondo: "Alex de Minaur" },
-    gruppoBorg: { primo: "Jannik Sinner", secondo: null },
+    gruppoBorg: { primo: "Jannik Sinner", secondo: "Felix Auger-Aliassime" },
   },
 };
 
@@ -177,7 +177,7 @@ const pronostici = [
   },
 ];
 
-pronostici.push(tiresia);
+//pronostici.push(tiresia);
 // === COSTRUZIONE PAGINA ===
 
 // Seleziona gli elementi del menu e associa eventi click
