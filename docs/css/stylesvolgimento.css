@@ -24,7 +24,7 @@ header {
   background: white;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  width: 220px;
+  width: 180px;
   text-align: center;
   overflow: hidden;
 }
@@ -63,6 +63,12 @@ header {
 
 .giocatore {
   padding: 4px 0;
+}
+.eliminato {
+  background-color: #ffcccc;
+}
+.incognito {
+  background-color: #f8f3a9;
 }
 
 .giocatore h4 {
