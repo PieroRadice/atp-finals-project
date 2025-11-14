@@ -111,7 +111,7 @@ const pronostici = [
   },
   {
     nome: "Piero",
-    img: "../img/agassi.png",
+    img: "../img/Filini.png",
     scelte: {
       gruppoConnors: { primo: "Lorenzo Musetti", secondo: "Taylor Fritz" },
       gruppoBorg: {
@@ -155,7 +155,7 @@ const pronostici = [
   },
   {
     nome: "Rob",
-    img: "../img/wavrinka.png",
+    img: "../img/Ugo.png",
     scelte: {
       gruppoConnors: { primo: "Lorenzo Musetti", secondo: "Carlos Alcaraz" },
       gruppoBorg: {
