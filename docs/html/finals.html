@@ -1,101 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,  initial-scale=1.0" />
-    <meta name="robots" content="noindex,  nofollow" />
-    <meta name="google" content="notranslate" />
-    <meta
-      http-equiv="Cache-Control"
-      content="no-cache,  no-store,  must-revalidate"
-    />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <title>PopostapoTennis</title>
-    <link
-      rel="stylesheet"
-      href="../css/australian-open-2025-pronostico.css?v=1.0"
-    />
-    <link rel="stylesheet" href="../css/hamburger.css?v=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATP Finals Tournament Bracket - Interattivo</title>
+    <link rel="stylesheet" href="../css/style.css" />
   </head>
   <body>
-    <header>
-      <div class="hamburger-menu">
-        <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-        <nav class="menu">
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="#" data-source="0">Pronostici</a></li>
-            <li>
-              <a href="#" data-source="1">Prima fase: gironi all'italiana</a>
-            </li>
-            <li>
-              <a href="#" data-source="5">Semifinali</a>
-            </li>
-            <li><a href="#" data-source="6">Finale</a></li>
-            <!--
-            -->
-          </ul>
-        </nav>
+    <div class="container">
+      <header>
+        <h1>ATP Finals 2025</h1>
+      </header>
+
+      <div class="instructions">
+        <h3>Come utilizzare il simulatore:</h3>
+        <p>1. Inserisci il tuo nome e password</p>
+        <p>2. Nelle semifinali, clicca sul vincitore di ogni match</p>
+        <p>3. Nella finale, clicca sul vincitore del torneo</p>
+        <p>4. Controlla il punteggio totale e clicca su "Invia pronostico"</p>
+        <p>buon divertimento!</p>
       </div>
-    </header>
-    <h1>ATP FINALS 2025</h1>
-    <div class="column-container" id="columns"></div>
-    <script type="module">
-      // Importa la funzione per costruire la tabella
-      import { creaColonne } from "../js/turniFinals.js";
 
-      // Seleziona gli elementi del menu e associa eventi click
-      const menuToggle = document.querySelector(".menu-toggle");
-      const menu = document.querySelector(".menu");
-      const menuLinks = document.querySelectorAll(".menu a");
-      const titleElement = document.querySelector("h1"); // Seleziona l'h1
+      <div class="login-container">
+        <div class="name-input-container">
+          <input
+            type="text"
+            class="name-input"
+            id="user-name"
+            placeholder="Inserisci il tuo nome"
+          />
+        </div>
+        <div class="name-input-container">
+          <input
+            type="password"
+            class="name-input"
+            id="user-password"
+            placeholder="Inserisci la password"
+          />
+        </div>
+        <div class="login-status" id="login-status"></div>
+      </div>
 
-      menuLinks.forEach((link) => {
-        if (link.getAttribute("href") === "/") {
-          return; // Salta il link "Home"
-        }
-        if (link.getAttribute("href") === "../../index.html") {
-          return; // Salta questo link e passa al prossimo
-        }
-        link.addEventListener("click", async (event) => {
-          event.preventDefault(); // Evita il comportamento predefinito del link
+      <form id="tournament-form">
+        <div class="tournament-structure">
+          <!-- Fase a eliminazione diretta -->
+          <div class="knockout-section">
+            <h2 class="section-title">Fase Finale</h2>
+            <div class="knockout-stage">
+              <!-- Semifinali -->
+              <div class="bracket">
+                <h3 class="bracket-title">Semifinali</h3>
+                <div class="match" id="semifinal1">
+                  <div class="match-player" data-player="player1">
+                    <div class="player-info">
+                      <div class="player-icon">1</div>
+                      <span>Carlos Alcaraz</span>
+                    </div>
+                  </div>
+                  <div class="match-player" data-player="player2">
+                    <div class="player-info">
+                      <div class="player-icon">2</div>
+                      <span>Jannik Sinner</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="match" id="semifinal2">
+                  <div class="match-player" data-player="player3">
+                    <div class="player-info">
+                      <div class="player-icon">3</div>
+                      <span>Alexander Zverev</span>
+                    </div>
+                  </div>
+                  <div class="match-player" data-player="player4">
+                    <div class="player-info">
+                      <div class="player-icon">4</div>
+                      <span>Taylor Fritz</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-          // Ottieni il file di dati specificato nell'attributo data-source
-          const tournamentID = 6;
-          const dataSource = event.target.dataset.source;
+              <!-- Finale -->
+              <div class="bracket">
+                <h3 class="bracket-title">Finale</h3>
+                <div class="match final-match" id="final">
+                  <div class="match-player" data-player="semifinal1-winner">
+                    <div class="player-info">
+                      <div class="player-icon">SF1</div>
+                      <span>Vincitore Semifinale 1</span>
+                    </div>
+                  </div>
+                  <div class="match-player" data-player="semifinal2-winner">
+                    <div class="player-info">
+                      <div class="player-icon">SF2</div>
+                      <span>Vincitore Semifinale 2</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-          try {
-            // Chiama la funzione creaColonne con i nuovi dati
-            const columnContainer = document.getElementById("columns");
-            columnContainer.innerHTML = ""; // Resetta le colonne esistenti
-            creaColonne(dataSource);
+            <!-- Campione -->
+            <div class="champion" id="champion-section">
+              <div class="champion-title">Campione ATP Finals 2025</div>
+              <div class="champion-name" id="champion-name">--</div>
+            </div>
+          </div>
+        </div>
 
-            // Modifica il contenuto dell'h1 con il testo dell'opzione selezionata
-            const selectedOptionText = event.target.textContent; // Testo dell'opzione
-            titleElement.textContent = `${selectedOptionText.toUpperCase()} ATP FINALS 2025`;
+        <!-- Sezione Punteggio -->
+        <div class="score-section" id="score-section" style="display: none">
+          <h2 class="section-title">Riepilogo Punteggio</h2>
+          <div class="score-container">
+            <div class="score-breakdown" id="score-breakdown">
+              <!-- Dettaglio punti verrà generato dinamicamente -->
+            </div>
+            <div class="total-score">
+              <h3>Punteggio Totale: <span id="total-points">0</span> punti</h3>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="buttons-container">
+      <button type="button" class="reset-button" id="reset-button">
+        Reset Torneo
+      </button>
+      <button type="button" class="submit-button" id="submit-button" disabled>
+        Invia Pronostico
+      </button>
+    </div>
+    <!-- Modal di conferma -->
+    <div class="modal" id="confirmation-modal">
+      <div class="modal-content">
+        <h2>Pronostico Inviato!</h2>
+        <p id="confirmation-message">
+          Il tuo pronostico è stato registrato con successo.
+        </p>
+        <button class="close-modal" id="close-modal">Chiudi</button>
+      </div>
+    </div>
 
-            // Chiudi il menu
-            menu.classList.remove("open");
-          } catch (error) {
-            console.error("Errore durante l'importazione dei dati:", error);
-          }
-        });
-      });
-
-      // Toggle del menu
-      menuToggle.addEventListener("click", () => {
-        menu.classList.toggle("open");
-      });
-
-      // Simula il clic sull'ultima opzione del menu al caricamento della pagina
-      window.addEventListener("DOMContentLoaded", () => {
-        const lastMenuLink = menuLinks[menuLinks.length - 1]; // Seleziona l'ultima opzione del menu
-        if (lastMenuLink) {
-          lastMenuLink.click(); // Simula il clic sull'ultima opzione
-        }
-      });
-    </script>
+    <!-- Inclusione del file delle password -->
+    <script src="../js/passwords.js"></script>
+    <script src="../js/app.js"></script>
   </body>
 </html>
