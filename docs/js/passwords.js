@@ -1,15 +1,15 @@
 // File delle password - salvato come js/passwords.js
 const userPasswords = {
-  Lombo: "Cachara",
-  Pam: "Vincere!",
-  Martina: "Espadrillas",
-  Mix: "CiSiBecca",
-  Piero: "PieroPiero",
-  Pier: "ButtoViaTutto!",
-  Nata: "FigliaDelMinistro",
-  Gigi: "Italiani!",
-  Rob: "FightFightFight",
-  Cuzzo: "Marigio",
+  Lombo: "lombo68@hotmail.com",
+  Pam: "pamelavecchietti75@gmail.com",
+  Martina: "martina.creti21@libero.it",
+  Mix: "michela_radice@alice.it",
+  Piero: "radice.p@gmail.com",
+  Pier: "pierluigi.giovati@gmail.com",
+  Nata: "nataliaricco74@gmail.com",
+  Gigi: "luigipeluso15@gmail.com!",
+  Rob: "Matogrelu@gmail.com",
+  Cuzzo: "maurizio.colombo.web@gmail.com",
 };
 
 // Funzione per verificare le credenziali
