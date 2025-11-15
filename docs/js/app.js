@@ -5,17 +5,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Mappa dei giocatori con sistema punti
   const players = {
-    player1: {
+    player3: {
       name: "Carlos Alcaraz",
       initial: "C",
       basePoints: 25,
     },
-    player2: {
+    player1: {
       name: "Jannik Sinner",
       initial: "J",
       basePoints: 25,
     },
-    player3: {
+    player2: {
       name: "Alex de Minaur",
       initial: "A",
       basePoints: 50,
