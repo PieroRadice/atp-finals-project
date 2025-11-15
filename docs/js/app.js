@@ -16,12 +16,12 @@ document.addEventListener("DOMContentLoaded", function () {
       basePoints: 25,
     },
     player3: {
-      name: "Alexander Zverev",
+      name: "Alex de Minaur",
       initial: "A",
       basePoints: 50,
     },
     player4: {
-      name: "Taylor Fritz",
+      name: "Felix Auger-Aliassime",
       initial: "T",
       basePoints: 50,
     },
