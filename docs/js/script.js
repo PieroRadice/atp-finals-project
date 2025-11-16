@@ -4,6 +4,7 @@ const punteggi = {
     gruppo: "Connors",
     punti2: 20,
     punti1: 40,
+    puntiSemifinale: 20,
     classifica: 1,
     posizioneOttenuta: 1,
   },
@@ -25,6 +26,7 @@ const punteggi = {
     gruppo: "Connors",
     punti2: 80,
     punti1: 160,
+    puntiSemifinale: 40,
     classifica: 7,
     posizioneOttenuta: 4,
   },
@@ -32,6 +34,7 @@ const punteggi = {
     gruppo: "Borg",
     punti2: 20,
     punti1: 40,
+    puntiSemifinale: 20,
     classifica: 2,
     posizioneOttenuta: 1,
   },
@@ -53,6 +56,7 @@ const punteggi = {
     gruppo: "Borg",
     punti2: 160,
     punti1: 320,
+    puntiSemifinale: 80,
     classifica: 8,
     posizioneOttenuta: 4,
   },
@@ -65,6 +69,9 @@ const tiresia = {
   scelte: {
     gruppoConnors: { primo: "Carlos Alcaraz", secondo: "Alex de Minaur" },
     gruppoBorg: { primo: "Jannik Sinner", secondo: "Felix Auger-Aliassime" },
+    semifinale1: "Jannik Sinner",
+    semifinale2: "Carlos Alcaraz",
+    finale: null,
   },
 };
 
@@ -72,6 +79,9 @@ const tc1 = tiresia.scelte.gruppoConnors.primo;
 const tc2 = tiresia.scelte.gruppoConnors.secondo;
 const tb1 = tiresia.scelte.gruppoBorg.primo;
 const tb2 = tiresia.scelte.gruppoBorg.secondo;
+const ts1 = tiresia.scelte.semifinale1;
+const ts2 = tiresia.scelte.semifinale2;
+const tf0 = tiresia.scelte.finale;
 // Ogni partecipante indica 1° e 2° per ciascun gruppo
 const pronostici = [
   {
@@ -80,6 +90,9 @@ const pronostici = [
     scelte: {
       gruppoConnors: { primo: "Carlos Alcaraz", secondo: "Taylor Fritz" },
       gruppoBorg: { primo: "Jannik Sinner", secondo: "Felix Auger-Aliassime" },
+      semifinale1: "Jannik Sinner",
+      semifinale2: "Carlos Alcaraz",
+      finale: "Jannik Sinner",
     },
   },
   {
@@ -88,6 +101,9 @@ const pronostici = [
     scelte: {
       gruppoConnors: { primo: "Carlos Alcaraz", secondo: "Alex de Minaur" },
       gruppoBorg: { primo: "Jannik Sinner", secondo: "Felix Auger-Aliassime" },
+      semifinale1: "Jannik Sinner",
+      semifinale2: "Carlos Alcaraz",
+      finale: "Jannik Sinner",
     },
   },
   {
@@ -96,6 +112,9 @@ const pronostici = [
     scelte: {
       gruppoConnors: { primo: "Carlos Alcaraz", secondo: "Lorenzo Musetti" },
       gruppoBorg: { primo: "Jannik Sinner", secondo: "Alexander Zverev" },
+      semifinale1: "Jannik Sinner",
+      semifinale2: "Carlos Alcaraz",
+      finale: "Jannik Sinner",
     },
   },
   {
@@ -107,6 +126,9 @@ const pronostici = [
         primo: "Jannik Sinner",
         secondo: "Alexander Zverev",
       },
+      semifinale1: "Jannik Sinner",
+      semifinale2: "Carlos Alcaraz",
+      finale: "Jannik Sinner",
     },
   },
   {
@@ -118,6 +140,10 @@ const pronostici = [
         primo: "Felix Auger-Aliassime",
         secondo: "Ben Shelton",
       },
+
+      semifinale1: "Alex de Minaur",
+      semifinale2: "Felix Auger-Aliassime",
+      finale: "Felix Auger-Aliassime",
     },
   },
   {
@@ -129,6 +155,9 @@ const pronostici = [
         primo: "Jannik Sinner",
         secondo: "Ben Shelton",
       },
+      semifinale1: "Jannik Sinner",
+      semifinale2: "Carlos Alcaraz",
+      finale: "Jannik Sinner",
     },
   },
   {
@@ -140,6 +169,9 @@ const pronostici = [
         primo: "Jannik Sinner",
         secondo: "Alexander Zverev",
       },
+      semifinale1: "Jannik Sinner",
+      semifinale2: "Carlos Alcaraz",
+      finale: "Jannik Sinner",
     },
   },
   {
@@ -151,17 +183,23 @@ const pronostici = [
         primo: "Jannik Sinner",
         secondo: "Felix Auger-Aliassime",
       },
+      semifinale1: "Jannik Sinner",
+      semifinale2: "Felix Auger-Aliassime",
+      finale: "Jannik Sinner",
     },
   },
   {
     nome: "Rob",
-    img: "../img/Ugo.png",
+    img: "../img/wavrinka.png",
     scelte: {
       gruppoConnors: { primo: "Lorenzo Musetti", secondo: "Carlos Alcaraz" },
       gruppoBorg: {
         primo: "Ben Shelton",
         secondo: "Alexander Zverev",
       },
+      semifinale1: "Jannik Sinner",
+      semifinale2: "Carlos Alcaraz",
+      finale: "Carlos Alcaraz",
     },
   },
   {
@@ -173,6 +211,9 @@ const pronostici = [
         primo: "Jannik Sinner",
         secondo: "Lorenzo Musetti",
       },
+      semifinale1: "Jannik Sinner",
+      semifinale2: "Carlos Alcaraz",
+      finale: "Jannik Sinner",
     },
   },
 ];
@@ -196,9 +237,14 @@ menuLinks.forEach((link) => {
   link.addEventListener("click", async (event) => {
     event.preventDefault(); // Evita il comportamento predefinito del link
     dataSource = event.target.dataset.source;
-    console.log(dataSource);
-    creaPag(dataSource);
-    classeGiocatore();
+    titleElement.textContent = link.textContent + " ATP FINALS 2025";
+    if (dataSource < 2) {
+      creaPag(dataSource);
+      classeGiocatore();
+    } else {
+      creaPagFaseFinale(dataSource);
+      classeGiocatoreFaseFinale();
+    }
   });
 });
 
@@ -313,3 +359,77 @@ function classeGiocatore() {
     }
   });
 }
+
+function creaPagFaseFinale(dataSource) {
+  const container = document.getElementById("container");
+  container.replaceChildren();
+  pronostici.forEach((p) => {
+    // Recupera giocatori scelti
+    const s1 = p.scelte.semifinale1;
+    const s2 = p.scelte.semifinale2;
+    const f0 = p.scelte.finale;
+
+    let totale = 0;
+    let puntiS1 = 0;
+    let puntiS2 = 0;
+    let puntiF0 = 0;
+    console.log(dataSource);
+    if (dataSource == 2) {
+      puntiS1 = s1 ? punteggi[s1].puntiSemifinale : 0;
+      puntiS2 = s2 ? punteggi[s2].puntiSemifinale : 0;
+      puntiF0 = f0 ? punteggi[f0].puntiSemifinale * 2 : 0;
+    } else {
+      puntiS1 =
+        (s1 ? punteggi[s1].puntiSemifinale : 0) * (ts1 ? ts1 === s1 : 1);
+      puntiS2 =
+        (s2 ? punteggi[s2].puntiSemifinale : 0) * (ts2 ? ts2 === s2 : 1);
+      puntiF0 =
+        (f0 ? punteggi[f0].puntiSemifinale * 2 : 0) * (tf0 ? tf0 === f0 : 1);
+      f0 == ts1 || f0 == ts2 ? 1 == 1 : (puntiF0 = 0);
+    }
+
+    totale = puntiS1 + puntiS2 + puntiF0;
+    // Crea la card HTML
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+    <img src="${p.img}" alt="${p.nome}">
+    <div class="nome">${p.nome}</div>
+    <div class="totale">Totale: ${totale} punti</div>
+
+    <div class="gruppo">
+      <h3>Finale</h3>
+      <div id = "${f0}" class="giocatore${puntiF0 ? "" : " eliminato"}">
+        <h4>1° ${f0}</h4>
+        <small>Classifica: ${
+          f0 ? punteggi[f0].classifica : "--"
+        } | ${puntiF0} punti</small>
+      </div>
+    </div>
+
+    <div class="gruppo">
+      <h3>Semifinali</h3>
+
+          <div id = "${s1}" class="giocatore${puntiS1 ? "" : " eliminato"}${
+      ts1 == null ? " incognito" : ""
+    }">
+            <h4>1° ${s1}</h4>
+            <small>Classifica: ${
+              s1 ? punteggi[s1].classifica : "--"
+            } | ${puntiS1} punti</small>
+          </div>
+
+          <div id = "${s2}" class="giocatore${puntiS2 ? "" : " eliminato"}${
+      ts2 == null ? " incognito" : ""
+    }">
+            <h4>2° ${s2}</h4>
+            <small>Classifica: ${
+              s2 ? punteggi[s2].classifica : "--"
+            } | ${puntiS2} punti</small>
+          </div>
+    </div>
+  `;
+    container.appendChild(card);
+  });
+}
+function classeGiocatoreFaseFinale() {}
