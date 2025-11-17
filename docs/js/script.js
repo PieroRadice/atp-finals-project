@@ -71,7 +71,7 @@ const tiresia = {
     gruppoBorg: { primo: "Jannik Sinner", secondo: "Felix Auger-Aliassime" },
     semifinale1: "Jannik Sinner",
     semifinale2: "Carlos Alcaraz",
-    finale: null,
+    finale: "Jannik Sinner",
   },
 };
 
@@ -352,7 +352,7 @@ function classeGiocatore() {
     if (giocatore.id == tb1 && tb1 == null) {
       giocatore.classList.add("incognito");
     }
-    console.log("cavallo", giocatore.id, tb2);
+
     if (giocatore.id == tb2 && tb2 == null) {
       giocatore.classList.remove("eliminato");
       giocatore.classList.add("incognito");
@@ -373,7 +373,7 @@ function creaPagFaseFinale(dataSource) {
     let puntiS1 = 0;
     let puntiS2 = 0;
     let puntiF0 = 0;
-    console.log(dataSource);
+
     if (dataSource == 2) {
       puntiS1 = s1 ? punteggi[s1].puntiSemifinale : 0;
       puntiS2 = s2 ? punteggi[s2].puntiSemifinale : 0;
@@ -383,8 +383,7 @@ function creaPagFaseFinale(dataSource) {
         (s1 ? punteggi[s1].puntiSemifinale : 0) * (ts1 ? ts1 === s1 : 1);
       puntiS2 =
         (s2 ? punteggi[s2].puntiSemifinale : 0) * (ts2 ? ts2 === s2 : 1);
-      puntiF0 =
-        (f0 ? punteggi[f0].puntiSemifinale * 2 : 0) * (tf0 ? tf0 === f0 : 1);
+      puntiF0 = (tf0 ? punteggi[f0].puntiSemifinale * 2 : 0) * (tf0 === f0);
       f0 == ts1 || f0 == ts2 ? 1 == 1 : (puntiF0 = 0);
     }
 
